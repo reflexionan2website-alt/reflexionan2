@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflexionan2 - Calzado a Tus Pies Para Recorrer el Camino</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        surreal: {
+                            dark: '#0a0518',
+                            card: 'rgba(25, 15, 45, 0.65)',
+                            accent: '#a855f7',
+                            pink: '#ec4899',
+                            cyan: '#06b6d4',
+                            glow: '#c084fc'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0.0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Desactivar Selección de Texto Global y Protecciones Anti-Copia */
+        body, .no-select {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        h1, h2, h3, .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Ocultar Barra de Desplazamiento Conservando Funcionalidad */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Estilo Vidrio Esmerilado Surrealista */
+        .glass-panel {
+            background: rgba(20, 10, 35, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card {
+            background: rgba(30, 18, 52, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Fondos Animados Místicos */
+        .surreal-bg {
+            background: radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.25) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
+                        #080312;
+            background-attachment: fixed;
+        }
+
+        /* Partículas de Fondo Simuladas */
+        .stars-overlay {
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+        }
+
+        /* Karaoke Active Highlight */
+        .lyric-line {
+            transition: all 0.3s ease;
+            opacity: 0.4;
+            transform: scale(0.96);
+        }
+        .lyric-line.active {
+            opacity: 1;
+            transform: scale(1.05);
+            color: #ec4899;
+            text-shadow: 0 0 12px rgba(236, 72, 153, 0.8);
+            font-weight: 700;
+        }
+
+        /* Ocultar menú contextual de descargas en audio */
+        audio::-internal-media-controls-download-button {
+            display:none;
+        }
+        audio::-webkit-media-controls-enclosure {
+            overflow:hidden;
+        }
+        audio::-webkit-media-controls-panel {
+            width: calc(100% + 30px);
+        }
+    </style>
+</head>
+<body class="surreal-bg text-slate-100 min-h-screen flex flex-col relative overflow-x-hidden no-select" oncontextmenu="return false;">
+
+    <!-- Capa de Partículas de Fondo -->
+    <div class="fixed inset-0 stars-overlay pointer-events-none z-0"></div>
+
+    <!-- NAVEGACIÓN SUPERIOR -->
+    <header class="sticky top-0 z-30 glass-panel border-b border-purple-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('audiolibros')">
+                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-purple-600 via-pink-500 to-cyan-400 p-[2px] animate-pulse-slow">
+                    <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center">
+                        <i class="fa-solid font-bold fa-feather-pointed text-pink-400 text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-200">Reflexionan2</h1>
+                </div>
+            </div>
+
+            <!-- Navegación de Pestañas Principales -->
+            <nav class="hidden md:flex space-x-1 glass-panel px-3 py-1.5 rounded-full border-purple-500/20">
+                <button id="nav-audiolibros" onclick="switchTab('audiolibros')" class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 bg-purple-600/60 text-white shadow-lg shadow-purple-900/50">
+                    <i class="fa-solid fa-headphones text-pink-400"></i>
+                    <span>Audiolibros</span>
+                </button>
+                <button id="nav-libros" onclick="switchTab('libros')" class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 text-purple-200 hover:text-white hover:bg-purple-900/30">
+                    <i class="fa-solid fa-book-open text-cyan-400"></i>
+                    <span>Libros Escritos</span>
+                </button>
+                <button id="nav-canciones" onclick="switchTab('canciones')" class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 text-purple-200 hover:text-white hover:bg-purple-900/30">
+                    <i class="fa-solid fa-music text-purple-400"></i>
+                    <span>Canciones Inéditas</span>
+                </button>
+            </nav>
+
+            <!-- Acceso Privado Editor & Redes Sociales -->
+            <div class="flex items-center space-x-3">
+                <button onclick="openDonationModal()" class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 to-pink-500/20 border border-amber-500/40 text-amber-300 hover:border-amber-400 transition-all text-sm font-medium">
+                    <i class="fa-solid fa-heart text-pink-500 animate-pulse"></i>
+                    <span>Donar</span>
+                </button>
+
+                <button onclick="openAdminModal()" class="px-4 py-2 rounded-full glass-panel border border-purple-500/30 hover:border-pink-500/60 text-purple-200 hover:text-white text-sm font-medium flex items-center space-x-2 transition-all">
+                    <i class="fa-solid fa-user-gear text-pink-400"></i>
+                    <span class="hidden sm:inline">Editor Privado</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Móvil: Bar Navegación Inferior Móvil -->
+        <div class="md:hidden flex justify-around border-t border-purple-900/40 bg-slate-950/80 backdrop-blur-md py-2 px-1">
+            <button id="mob-audiolibros" onclick="switchTab('audiolibros')" class="flex flex-col items-center py-1 px-3 text-xs text-purple-300">
+                <i class="fa-solid fa-headphones text-base mb-0.5"></i>
+                <span>Audio</span>
+            </button>
+            <button id="mob-libros" onclick="switchTab('libros')" class="flex flex-col items-center py-1 px-3 text-xs text-slate-400">
+                <i class="fa-solid fa-book-open text-base mb-0.5"></i>
+                <span>Lectura</span>
+            </button>
+            <button id="mob-canciones" onclick="switchTab('canciones')" class="flex flex-col items-center py-1 px-3 text-xs text-slate-400">
+                <i class="fa-solid fa-music text-base mb-0.5"></i>
+                <span>Canciones</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SUBREALISTA -->
+    <section class="relative py-12 px-4 sm:px-6 lg:px-8 text-center max-w-5xl mx-auto z-10">
+        <div class="inline-block p-1 px-4 rounded-full glass-panel border-purple-500/30 mb-4 animate-float">
+            <span class="text-xs uppercase tracking-widest text-cyan-300 font-semibold"><i class="fa-solid fa-sparkles mr-2 text-pink-400"></i>Biblioteca Onírica Multimedial</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-200 via-pink-200 to-cyan-100 font-cinzel drop-shadow-lg">
+            Reflexionan2
+        </h2>
+        <p class="mt-3 text-lg sm:text-xl text-purple-200/80 font-light italic max-w-2xl mx-auto">
+            "Calzado a Tus Pies Para Recorrer el Camino"
+        </p>
+        <div class="mt-6 flex justify-center items-center space-x-6 text-xl text-purple-300/70">
+            <a id="nav-link-whatsapp" href="#" target="_blank" class="hover:text-emerald-400 transition-colors" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a id="nav-link-facebook" href="#" target="_blank" class="hover:text-blue-400 transition-colors" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a id="nav-link-instagram" href="#" target="_blank" class="hover:text-pink-400 transition-colors" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a id="nav-link-youtube" href="#" target="_blank" class="hover:text-red-500 transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a id="nav-link-twitter" href="#" target="_blank" class="hover:text-cyan-400 transition-colors" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a id="nav-link-email" href="#" class="hover:text-amber-300 transition-colors" title="Contacto Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </section>
+
+    <!-- CONTENIDORES DE GALERÍAS -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 w-full z-10">
+        
+        <!-- SECCIÓN 1: AUDIOLIBROS -->
+        <section id="sec-audiolibros" class="gallery-section">
+            <div class="flex justify-between items-center mb-8 border-b border-purple-800/30 pb-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-purple-100 flex items-center font-cinzel">
+                        <i class="fa-solid fa-headphones-simple text-pink-500 mr-3"></i> Galerías de Audiolibros
+                    </h3>
+                    <p class="text-xs text-purple-300/60 mt-1">Escucha narraciones inspiradoras directamente sin descargas</p>
+                </div>
+                <span id="count-audiolibros" class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-900/50 text-purple-300 border border-purple-500/30">0 ítems</span>
+            </div>
+            <div id="grid-audiolibros" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: LIBROS ESCRITOS -->
+        <section id="sec-libros" class="gallery-section hidden">
+            <div class="flex justify-between items-center mb-8 border-b border-purple-800/30 pb-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-purple-100 flex items-center font-cinzel">
+                        <i class="fa-solid fa-book-bookmark text-cyan-400 mr-3"></i> Obras Escritas & Lecturas
+                    </h3>
+                    <p class="text-xs text-purple-300/60 mt-1">Lectura en pantalla inmersiva y protegida contra copia o descarga</p>
+                </div>
+                <span id="count-libros" class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-900/50 text-purple-300 border border-purple-500/30">0 ítems</span>
+            </div>
+            <div id="grid-libros" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CANCIONES INÉDITAS -->
+        <section id="sec-canciones" class="gallery-section hidden">
+            <div class="flex justify-between items-center mb-8 border-b border-purple-800/30 pb-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-purple-100 flex items-center font-cinzel">
+                        <i class="fa-solid fa-compact-disc text-purple-400 mr-3"></i> Canciones Inéditas
+                    </h3>
+                    <p class="text-xs text-purple-300/60 mt-1">Música original con visualizador de letras sincronizadas / Karaoke</p>
+                </div>
+                <span id="count-canciones" class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-900/50 text-purple-300 border border-purple-500/30">0 ítems</span>
+            </div>
+            <div id="grid-canciones" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="glass-panel border-t border-purple-900/50 py-8 px-4 text-center text-xs text-purple-300/60 z-10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold text-purple-200 text-sm font-cinzel">Reflexionan2</p>
+                <p class="mt-1">© 2026 Todos los derechos reservados. Plataforma de protección estricta de obras intelectuales.</p>
+            </div>
+            <div class="flex space-x-4 text-base">
+                <button onclick="openDonationModal()" class="hover:text-pink-400 transition-colors"><i class="fa-solid fa-hand-holding-dollar"></i> Donar</button>
+                <button onclick="openAdminModal()" class="hover:text-cyan-400 transition-colors"><i class="fa-solid fa-lock"></i> Editor</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE LECTURA Y REPRODUCCIÓN DESTACADO (REPRODUCTOR / LECTOR SUBLIME) -->
+    <div id="player-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 hidden transition-opacity duration-300">
+        <!-- Fondo con Portada Blurred Surrealista Dinámico -->
+        <div id="modal-bg-blur" class="absolute inset-0 bg-cover bg-center filter blur-2xl scale-110 opacity-40 transition-all duration-700"></div>
+        <div class="absolute inset-0 bg-slate-950/85 backdrop-blur-md"></div>
+
+        <!-- Contenido Modal -->
+        <div class="relative w-full max-w-4xl max-h-[92vh] glass-panel rounded-3xl border border-purple-500/30 overflow-hidden flex flex-col shadow-2xl z-10">
+            
+            <!-- Barra Superior del Modal -->
+            <div class="flex items-center justify-between p-4 border-b border-purple-800/30 bg-slate-950/40">
+                <div class="flex items-center space-x-2">
+                    <span id="modal-type-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30 uppercase tracking-widest">
+                        Canción
+                    </span>
+                    <span class="text-xs text-purple-300/60">Modo Presentación</span>
+                </div>
+                <button onclick="closePlayerModal()" class="w-9 h-9 rounded-full glass-panel hover:bg-pink-500/20 hover:text-pink-300 flex items-center justify-center text-purple-200 transition-all">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Cuerpo del Modal -->
+            <div class="p-4 sm:p-6 overflow-y-auto no-scrollbar flex-grow flex flex-col md:flex-row gap-6 items-start">
+                
+                <!-- Columna Izquierda: Portada e Info Principal -->
+                <div class="w-full md:w-1/3 flex flex-col items-center text-center">
+                    <div class="relative w-48 h-48 sm:w-60 sm:h-60 rounded-2xl overflow-hidden shadow-2xl border-2 border-purple-500/30 group">
+                        <img id="modal-cover" src="" alt="Portada" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                    </div>
+
+                    <h3 id="modal-title" class="mt-4 text-xl sm:text-2xl font-bold text-white font-cinzel leading-snug">Título</h3>
+                    <p id="modal-author" class="text-sm text-purple-300/80 mt-1">Autor / Intérprete</p>
+
+                    <!-- Botón Me Gusta e Interacción -->
+                    <div class="mt-4 flex items-center space-x-3">
+                        <button id="btn-like" onclick="toggleLike()" class="px-4 py-2 rounded-full glass-panel border border-pink-500/30 hover:border-pink-500 text-pink-300 flex items-center space-x-2 transition-all">
+                            <i id="like-icon" class="fa-regular fa-heart text-pink-400"></i>
+                            <span id="like-count" class="text-sm font-semibold">0</span>
+                        </button>
+
+                        <button onclick="sendWhatsAppModal()" class="px-4 py-2 rounded-full bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/40 text-emerald-300 flex items-center space-x-2 transition-all text-sm font-medium">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
+                            <span>WhatsApp</span>
+                        </button>
+                    </div>
+
+                    <!-- Enlaces Rápidos de Donación & Contacto -->
+                    <div class="mt-6 w-full pt-4 border-t border-purple-900/30 flex flex-col space-y-2 text-xs">
+                        <button onclick="openDonationModal()" class="w-full py-2 rounded-xl glass-panel border border-amber-500/30 text-amber-300 hover:bg-amber-500/10 flex items-center justify-center space-x-2 transition-all">
+                            <i class="fa-solid fa-hand-holding-dollar text-amber-400"></i>
+                            <span>Apoyar / Donar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Reproductor / Lector Escrito / Modo Karaoke -->
+                <div class="w-full md:w-2/3 flex flex-col h-full justify-between glass-panel p-4 sm:p-6 rounded-2xl border-purple-500/20">
+                    
+                    <!-- REPRODUCTOR DE AUDIO (Para Audiolibros y Canciones) -->
+                    <div id="modal-audio-container" class="w-full mb-4">
+                        <label class="block text-xs uppercase tracking-wider text-purple-300/70 mb-2 font-semibold">Reproducción Segura (Sin descargas)</label>
+                        <audio id="modal-audio-player" controls controlsList="nodownload" oncontextmenu="return false;" class="w-full rounded-xl bg-slate-900/80 border border-purple-500/30">
+                            Tu navegador no soporta el reproductor de audio.
+                        </audio>
+                    </div>
+
+                    <!-- VISTA TEXTO LIBRO (Protección Estricta Anti-Copia) -->
+                    <div id="modal-text-container" class="hidden flex-grow my-2">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs uppercase font-bold text-cyan-400"><i class="fa-solid fa-shield-halved mr-1"></i> Lectura Protegida Anti-Plagio</span>
+                            <span class="text-xs text-purple-300/50">Copia desactivada</span>
+                        </div>
+                        <div id="modal-book-content" class="w-full h-80 overflow-y-auto p-4 rounded-xl bg-slate-950/70 border border-purple-800/40 text-purple-100/90 text-sm sm:text-base leading-relaxed no-select" oncopy="return false;" oncut="return false;" onpaste="return false;">
+                            <!-- Texto del libro -->
+                        </div>
+                    </div>
+
+                    <!-- MODO KARAOKE / LETRAS (Para Canciones Inéditas) -->
+                    <div id="modal-karaoke-container" class="hidden flex-grow my-2">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs uppercase font-bold text-pink-400"><i class="fa-solid fa-microphone-lines mr-1"></i> Letras / Modo Karaoke</span>
+                            <span class="text-xs text-purple-300/50">Sincronización en vivo</span>
+                        </div>
+                        <div id="karaoke-lyrics-box" class="w-full h-64 overflow-y-auto p-4 rounded-xl bg-slate-950/80 border border-purple-800/40 text-center flex flex-col space-y-4 no-scrollbar">
+                            <!-- Letras dinamicas -->
+                        </div>
+                    </div>
+
+                    <!-- Pie de Contacto en Modal -->
+                    <div class="pt-4 border-t border-purple-900/30 flex items-center justify-between text-xs text-purple-300/70">
+                        <div class="flex space-x-3" id="modal-social-icons">
+                            <!-- Redes sociales cargadas dinámicamente -->
+                        </div>
+                        <span class="italic">Reflexionan2 Plataforma</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE DONACIONES -->
+    <div id="donation-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeDonationModal()"></div>
+        <div class="relative w-full max-w-md glass-panel rounded-3xl border border-amber-500/30 p-6 shadow-2xl z-10 text-center">
+            <button onclick="closeDonationModal()" class="absolute top-4 right-4 text-purple-300 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white font-cinzel">Aporta a Reflexionan2</h3>
+            <p class="text-xs text-purple-200/80 mt-1">Tus donaciones nos ayudan a continuar creando y publicando contenido inédito.</p>
+
+            <div class="mt-6 space-y-4 text-left">
+                <!-- Cuenta Bancaria -->
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-purple-500/20">
+                    <span class="text-xs text-amber-400 font-semibold block uppercase">Depósito / Transferencia Bancaria</span>
+                    <p id="don-bank" class="text-sm font-mono text-purple-100 font-bold mt-1 select-all">Cargando...</p>
+                </div>
+                <!-- PayPal -->
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-purple-500/20">
+                    <span class="text-xs text-cyan-400 font-semibold block uppercase">PayPal / Enlace de Pago</span>
+                    <a id="don-paypal" href="#" target="_blank" class="text-sm font-mono text-cyan-300 underline mt-1 block truncate">Cargando...</a>
+                </div>
+                <!-- Email de contacto para donaciones -->
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-purple-500/20">
+                    <span class="text-xs text-pink-400 font-semibold block uppercase">Correo de Contacto Directo</span>
+                    <p id="don-email" class="text-sm font-mono text-purple-100 mt-1">Cargando...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE AUTENTICACIÓN / ACCESO EDITOR -->
+    <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="relative w-full max-w-sm glass-panel rounded-3xl border border-purple-500/30 p-6 shadow-2xl z-10 text-center">
+            <div class="w-12 h-12 rounded-full bg-purple-600/30 border border-purple-400/40 text-purple-300 flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-user-lock"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white font-cinzel">Acceso de Editor</h3>
+            <p class="text-xs text-purple-300/70 mt-1">Ingresa el PIN de seguridad (Por defecto: admin123)</p>
+
+            <form onsubmit="handleAuth(event)" class="mt-4">
+                <input type="password" id="admin-pin" placeholder="Contraseña / PIN" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white placeholder-purple-400/40 text-center font-mono focus:outline-none focus:border-pink-500 mb-4">
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm transition-all shadow-lg shadow-purple-900/40">
+                    Ingresar al Panel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANEL DE ADMINISTRACIÓN / EDITOR PRIVADO (MODAL EXTENDIDO) -->
+    <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-md"></div>
+        <div class="relative w-full max-w-5xl max-h-[92vh] glass-panel rounded-3xl border border-pink-500/30 shadow-2xl z-10 flex flex-col overflow-hidden">
+            
+            <!-- Encabezado Editor -->
+            <div class="flex items-center justify-between p-4 border-b border-purple-800/40 bg-slate-950/60">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h3 class="text-lg font-bold text-white font-cinzel">Panel de Edición & Control Privado</h3>
+                </div>
+                <button onclick="closeAdminPanel()" class="px-3 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-300 hover:bg-red-500/40 text-xs">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Salir
+                </button>
+            </div>
+
+            <!-- Cuerpo del Editor (Pestañas de Gestión) -->
+            <div class="p-4 sm:p-6 overflow-y-auto flex-grow space-y-8 no-scrollbar">
+                
+                <!-- SECCIÓN CONFIGURACIÓN GENERAL (WhatsApp, Cuentas, Redes) -->
+                <div class="glass-card p-5 rounded-2xl">
+                    <h4 class="text-md font-bold text-amber-300 font-cinzel mb-4 flex items-center">
+                        <i class="fa-solid fa-sliders mr-2"></i> Configuración General y Datos de Contacto
+                    </h4>
+                    <form onsubmit="saveGeneralSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
+                        <div>
+                            <label class="block text-purple-300 mb-1">WhatsApp (sin espacios/+)</label>
+                            <input type="text" id="cfg-whatsapp" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">Número de Cuenta Bancaria</label>
+                            <input type="text" id="cfg-bank" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">PayPal (Email o Link)</label>
+                            <input type="text" id="cfg-paypal" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">Correo Electrónico de Contacto</label>
+                            <input type="email" id="cfg-email" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">Facebook URL</label>
+                            <input type="text" id="cfg-facebook" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">Instagram URL</label>
+                            <input type="text" id="cfg-instagram" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">YouTube URL</label>
+                            <input type="text" id="cfg-youtube" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-purple-300 mb-1">X / Twitter URL</label>
+                            <input type="text" id="cfg-twitter" class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-1 flex items-end">
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold transition-all">
+                                <i class="fa-solid fa-floppy-disk mr-1"></i> Guardar Ajustes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FORMULARIO PARA AGREGAR O EDITAR CONTENIDO -->
+                <div class="glass-card p-5 rounded-2xl">
+                    <h4 id="form-item-title" class="text-md font-bold text-pink-300 font-cinzel mb-4 flex items-center">
+                        <i class="fa-solid fa-plus-circle mr-2"></i> Publicar Nuevo Contenido
+                    </h4>
+
+                    <form id="item-form" onsubmit="handleSaveItem(event)" class="space-y-4 text-xs">
+                        <input type="hidden" id="edit-item-id">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-purple-300 mb-1">Categoría / Galería</label>
+                                <select id="item-category" onchange="toggleFormFields()" class="w-full p-2.5 rounded-xl bg-slate-900/90 border border-purple-500/30 text-white focus:outline-none">
+                                    <option value="audiolibros">Audiolibro</option>
+                                    <option value="libros">Libro Escrito</option>
+                                    <option value="canciones">Canción Inédita</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-purple-300 mb-1">Título de la Obra</label>
+                                <input type="text" id="item-title" required class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-purple-300 mb-1">Autor / Narrador / Artista</label>
+                                <input type="text" id="item-author" required class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-purple-300 mb-1">URL Imagen Portada (Fondo y Galería)</label>
+                                <input type="url" id="item-cover" required placeholder="https://..." class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                            </div>
+                            <div id="field-audio-url">
+                                <label class="block text-purple-300 mb-1">URL Archivo Audio (MP3 / WAV)</label>
+                                <input type="url" id="item-audio" placeholder="https://..." class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white">
+                            </div>
+                        </div>
+
+                        <!-- Campo Texto Completo Libro -->
+                        <div id="field-book-text" class="hidden">
+                            <label class="block text-purple-300 mb-1">Texto Completo del Libro (Lectura Protegida)</label>
+                            <textarea id="item-text" rows="5" placeholder="Escribe o pega aquí el contenido escrito..." class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white"></textarea>
+                        </div>
+
+                        <!-- Campo Letras Karaoke -->
+                        <div id="field-karaoke-lyrics">
+                            <label class="block text-purple-300 mb-1">Letras para Karaoke (Separar líneas o formato '[00:05] Letra')</label>
+                            <textarea id="item-lyrics" rows="4" placeholder="Línea 1&#10;Línea 2&#10;Línea 3..." class="w-full p-2.5 rounded-xl bg-slate-900/80 border border-purple-500/30 text-white"></textarea>
+                        </div>
+
+                        <div class="flex space-x-3 pt-2">
+                            <button type="submit" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold transition-all shadow-lg">
+                                <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Guardar Publicación
+                            </button>
+                            <button type="button" onclick="resetItemForm()" class="px-4 py-2.5 rounded-xl glass-panel text-purple-300 hover:text-white">
+                                Limpiar Formulario
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- LISTA DE ADMINISTRACIÓN DE CONTENIDOS -->
+                <div class="glass-card p-5 rounded-2xl">
+                    <h4 class="text-md font-bold text-cyan-300 font-cinzel mb-4 flex items-center">
+                        <i class="fa-solid fa-list-check mr-2"></i> Inventario de Obras Publicadas
+                    </h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-purple-200">
+                            <thead class="bg-slate-900/60 uppercase text-purple-400 border-b border-purple-800/40">
+                                <tr>
+                                    <th class="p-3">Portada</th>
+                                    <th class="p-3">Título / Obra</th>
+                                    <th class="p-3">Categoría</th>
+                                    <th class="p-3">Estado</th>
+                                    <th class="p-3 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-items-table" class="divide-y divide-purple-900/30">
+                                <!-- Filas generadas dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN TOAST SURREALISTA -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 glass-panel border border-pink-500/40 text-pink-200 px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-pink-400 text-lg"></i>
+        <span id="toast-message" class="text-xs font-semibold">Mensaje de notificación</span>
+    </div>
+
+    <!-- SCRIPT PRINCIPAL VANILLA JS (SIN DEPENDENCIAS EXTERNAS NI JAVA) -->
+    <script>
+        /* ==========================================================================
+           DATOS Y ESTADO DE LA APLICACIÓN (MEMORIA LOCAL / PRECARGADOS)
+           ========================================================================== */
+
+        // Configuración General
+        let settings = JSON.parse(localStorage.getItem('r2_settings')) || {
+            whatsapp: "8092341324",
+            bankAccount: "123-456789-01 (Banco Dominicano - Reflexionan2)",
+            paypal: "https://paypal.me/reflexionan2",
+            email: "contacto@reflexionan2.com",
+            facebook: "https://facebook.com",
+            instagram: "https://instagram.com",
+            youtube: "https://youtube.com",
+            twitter: "https://x.com",
+            adminPin: "admin123"
+        };
+
+        // Ítems Demostración Precargados Iniciales
+        const defaultItems = [
+            {
+                id: 'aud_1',
+                category: 'audiolibros',
+                title: 'El Despertar de la Conciencia',
+                author: 'Reflexionan2',
+                cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+                text: '',
+                lyrics: '',
+                hidden: false,
+                likes: 24
+            },
+            {
+                id: 'lib_1',
+                category: 'libros',
+                title: 'Pasos Sobre el Mar de Cristal',
+                author: 'Autor Anónimo',
+                cover: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80',
+                audio: '',
+                text: `Capítulo 1: La Huella Incalculable.
+
+Caminamos a menudo sin prestar atención a la firmeza del suelo bajo nuestros pies. El camino no es solo tierra o piedra; es la memoria de cada paso que hemos decidido dar y de aquellos que dejamos en el olvido.
+
+Cuando nos calzamos la humildad para recorrer el sendero de la vida, comprendemos que cada tropiezo no es una caída, sino una pausa necesaria para reajustar nuestra mirada hacia el horizonte surrealista de nuestros sueños.
+
+Protege tu pensamiento, cultiva el espíritu y jamás permitas que nadie clone la esencia única que has sido llamado a manifestar en este vasto universo de reflexiones.`,
+                lyrics: '',
+                hidden: false,
+                likes: 42
+            },
+            {
+                id: 'can_1',
+                category: 'canciones',
+                title: 'Ecos del Calzado Infinito',
+                author: 'Banda Reflexionan2',
+                cover: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+                text: '',
+                lyrics: `Camino en la penumbra del ayer
+Buscando luz para volver a ver
+Calzado a tus pies voy sin temor
+Sintiendo el latido de tu amor
+
+(Coro)
+Reflexionan2 en la inmensidad
+Volando alto hacia la verdad
+Bajo el cielo estrellado y el mar
+Esta canción no dejará de sonar
+
+Paso a paso en la eternidad...`,
+                hidden: false,
+                likes: 89
+            }
+        ];
+
+        let items = JSON.parse(localStorage.getItem('r2_items')) || defaultItems;
+        let currentTab = 'audiolibros';
+        let currentActiveItem = null;
+
+        /* ==========================================================================
+           INICIALIZACIÓN Y EVENTOS
+           ========================================================================== */
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderConfig();
+            renderGalleries();
+            setupAntiPlagiarismControls();
+        });
+
+        // Configurar Protecciones Anti-Descarga / Anti-Copia
+        function setupAntiPlagiarismControls() {
+            // Desactivar atajos de teclado clave (Ctrl+C, Ctrl+U, Ctrl+S, F12)
+            document.addEventListener('keydown', (e) => {
+                if (
+                    e.keyCode === 123 || // F12
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+                    (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
+                    (e.ctrlKey && e.keyCode === 83) || // Ctrl+S
+                    (e.ctrlKey && e.keyCode === 67 && window.getSelection().toString().length > 0) // Ctrl+C
+                ) {
+                    e.preventDefault();
+                    showToast('Acción no permitida por protección de derechos de autor', 'fa-shield-halved');
+                    return false;
+                }
+            });
+        }
+
+        /* ==========================================================================
+           GESTIÓN DE PESTAÑAS Y RENDERIZADO
+           ========================================================================== */
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+
+            // Ocultar todas las secciones
+            document.querySelectorAll('.gallery-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+
+            // Actualizar estilo botones Navegación Desktop
+            const tabs = ['audiolibros', 'libros', 'canciones'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                const mobBtn = document.getElementById(`mob-${t}`);
+                if (t === tabId) {
+                    btn.className = "px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 bg-purple-600/60 text-white shadow-lg shadow-purple-900/50";
+                    if(mobBtn) mobBtn.className = "flex flex-col items-center py-1 px-3 text-xs text-pink-400 font-bold";
+                } else {
+                    btn.className = "px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 text-purple-200 hover:text-white hover:bg-purple-900/30";
+                    if(mobBtn) mobBtn.className = "flex flex-col items-center py-1 px-3 text-xs text-slate-400";
+                }
+            });
+        }
+
+        function renderGalleries() {
+            const categories = ['audiolibros', 'libros', 'canciones'];
+
+            categories.forEach(cat => {
+                const grid = document.getElementById(`grid-${cat}`);
+                const countBadge = document.getElementById(`count-${cat}`);
+                const filtered = items.filter(i => i.category === cat && !i.hidden);
+
+                countBadge.innerText = `${filtered.length} obras`;
+                grid.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-12 glass-card rounded-2xl border-purple-500/20">
+                            <i class="fa-solid fa-ghost text-4xl text-purple-400/40 mb-3"></i>
+                            <p class="text-sm text-purple-300/60">No hay contenido disponible en esta galería por el momento.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "glass-card rounded-2xl overflow-hidden flex flex-col justify-between cursor-pointer group";
+                    card.onclick = () => openPlayerModal(item.id);
+
+                    let iconType = cat === 'audiolibros' ? 'fa-headphones' : (cat === 'libros' ? 'fa-book-open' : 'fa-music');
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative h-52 w-full overflow-hidden">
+                                <img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/600x600/1e1234/a855f7?text=Reflexionan2'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-[10px] font-bold bg-slate-950/70 border border-purple-500/30 text-purple-200 backdrop-blur-md">
+                                    <i class="fa-solid ${iconType} mr-1 text-pink-400"></i> ${cat.toUpperCase()}
+                                </span>
+                            </div>
+                            <div class="p-5">
+                                <h4 class="text-lg font-bold text-white font-cinzel line-clamp-1 group-hover:text-pink-300 transition-colors">${item.title}</h4>
+                                <p class="text-xs text-purple-300/70 mt-1">${item.author}</p>
+                            </div>
+                        </div>
+                        <div class="px-5 pb-5 flex items-center justify-between text-xs border-t border-purple-900/30 pt-3">
+                            <span class="text-pink-400 flex items-center font-semibold">
+                                <i class="fa-solid fa-heart mr-1"></i> ${item.likes || 0}
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-purple-600/30 text-purple-200 group-hover:bg-pink-600/50 transition-colors">
+                                Abrir Obra <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            });
+        }
+
+        /* ==========================================================================
+           REPRODUCTOR Y LECTOR INMERSIVO (MODAL SUBLIME)
+           ========================================================================== */
+
+        function openPlayerModal(itemId) {
+            const item = items.find(i => i.id === itemId);
+            if (!item) return;
+
+            currentActiveItem = item;
+
+            // Elementos del Modal
+            document.getElementById('modal-bg-blur').style.backgroundImage = `url('${item.cover}')`;
+            document.getElementById('modal-cover').src = item.cover;
+            document.getElementById('modal-title').innerText = item.title;
+            document.getElementById('modal-author').innerText = item.author;
+            document.getElementById('like-count').innerText = item.likes || 0;
+
+            const badge = document.getElementById('modal-type-badge');
+            const audioContainer = document.getElementById('modal-audio-container');
+            const textContainer = document.getElementById('modal-text-container');
+            const karaokeContainer = document.getElementById('modal-karaoke-container');
+            const audioPlayer = document.getElementById('modal-audio-player');
+
+            // Reset visibilidad de secciones
+            audioContainer.classList.add('hidden');
+            textContainer.classList.add('hidden');
+            karaokeContainer.classList.add('hidden');
+            audioPlayer.pause();
+
+            if (item.category === 'audiolibros') {
+                badge.innerText = "Audiolibro Escuchable";
+                audioContainer.classList.remove('hidden');
+                audioPlayer.src = item.audio;
+            } else if (item.category === 'libros') {
+                badge.innerText = "Lectura Protegida";
+                textContainer.classList.remove('hidden');
+                document.getElementById('modal-book-content').innerText = item.text;
+            } else if (item.category === 'canciones') {
+                badge.innerText = "Canción Inédita + Karaoke";
+                audioContainer.classList.remove('hidden');
+                karaokeContainer.classList.remove('hidden');
+                audioPlayer.src = item.audio;
+                renderKaraokeLyrics(item.lyrics);
+            }
+
+            renderModalSocials();
+
+            // Mostrar Modal con animación
+            const modal = document.getElementById('player-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closePlayerModal() {
+            const audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.pause();
+            document.getElementById('player-modal').classList.add('hidden');
+        }
+
+        function toggleLike() {
+            if (!currentActiveItem) return;
+            currentActiveItem.likes = (currentActiveItem.likes || 0) + 1;
+            document.getElementById('like-count').innerText = currentActiveItem.likes;
+            
+            // Guardar Estado
+            localStorage.setItem('r2_items', JSON.stringify(items));
+            renderGalleries();
+            showToast('¡Gracias por apoyar esta obra!', 'fa-heart');
+        }
+
+        function renderKaraokeLyrics(lyricsText) {
+            const container = document.getElementById('karaoke-lyrics-box');
+            container.innerHTML = '';
+
+            if (!lyricsText) {
+                container.innerHTML = '<p class="text-xs text-purple-300/40 italic">Letras no disponibles para esta canción.</p>';
+                return;
+            }
+
+            const lines = lyricsText.split('\n');
+            lines.forEach((line, index) => {
+                if (line.trim() !== '') {
+                    const p = document.createElement('p');
+                    p.className = `lyric-line text-sm sm:text-base ${index === 0 ? 'active' : ''}`;
+                    p.innerText = line;
+                    container.appendChild(p);
+                }
+            });
+
+            // Sincronización Interactiva Básica al reproducir
+            const audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.ontimeupdate = () => {
+                const allLines = container.querySelectorAll('.lyric-line');
+                if (allLines.length === 0) return;
+                
+                const duration = audioPlayer.duration || 1;
+                const progress = audioPlayer.currentTime / duration;
+                const activeIndex = Math.floor(progress * allLines.length);
+
+                allLines.forEach((l, idx) => {
+                    if (idx === activeIndex) {
+                        l.classList.add('active');
+                        l.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        l.classList.remove('active');
+                    }
+                });
+            };
+        }
+
+        /* ==========================================================================
+           DONACIONES & CONTACTO WHATSAPP
+           ========================================================================== */
+
+        function openDonationModal() {
+            document.getElementById('don-bank').innerText = settings.bankAccount || "No especificado";
+            const paypalLink = document.getElementById('don-paypal');
+            paypalLink.innerText = settings.paypal || "No especificado";
+            paypalLink.href = settings.paypal || "#";
+            document.getElementById('don-email').innerText = settings.email || "No especificado";
+
+            document.getElementById('donation-modal').classList.remove('hidden');
+        }
+
+        function closeDonationModal() {
+            document.getElementById('donation-modal').classList.add('hidden');
+        }
+
+        function sendWhatsAppModal() {
+            if (!currentActiveItem) return;
+            const phone = settings.whatsapp || "8092341324";
+            const message = encodeURIComponent(`Hola Reflexionan2, estoy interesado en la obra: "${currentActiveItem.title}" (${currentActiveItem.category}).`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        function renderConfig() {
+            // Actualizar Enlaces de Redes Nav
+            const phone = settings.whatsapp || "8092341324";
+            document.getElementById('nav-link-whatsapp').href = `https://wa.me/${phone}`;
+            document.getElementById('nav-link-facebook').href = settings.facebook || "#";
+            document.getElementById('nav-link-instagram').href = settings.instagram || "#";
+            document.getElementById('nav-link-youtube').href = settings.youtube || "#";
+            document.getElementById('nav-link-twitter').href = settings.twitter || "#";
+            document.getElementById('nav-link-email').href = `mailto:${settings.email || ''}`;
+
+            // Cargar en Inputs de Configuración Editor
+            document.getElementById('cfg-whatsapp').value = settings.whatsapp || '';
+            document.getElementById('cfg-bank').value = settings.bankAccount || '';
+            document.getElementById('cfg-paypal').value = settings.paypal || '';
+            document.getElementById('cfg-email').value = settings.email || '';
+            document.getElementById('cfg-facebook').value = settings.facebook || '';
+            document.getElementById('cfg-instagram').value = settings.instagram || '';
+            document.getElementById('cfg-youtube').value = settings.youtube || '';
+            document.getElementById('cfg-twitter').value = settings.twitter || '';
+        }
+
+        function renderModalSocials() {
+            const container = document.getElementById('modal-social-icons');
+            container.innerHTML = `
+                <a href="https://wa.me/${settings.whatsapp}" target="_blank" class="hover:text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="${settings.facebook}" target="_blank" class="hover:text-blue-400"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="${settings.instagram}" target="_blank" class="hover:text-pink-400"><i class="fa-brands fa-instagram"></i></a>
+                <a href="${settings.youtube}" target="_blank" class="hover:text-red-400"><i class="fa-brands fa-youtube"></i></a>
+            `;
+        }
+
+        /* ==========================================================================
+           PANEL ADMINISTRATIVO Y EDITOR PRIVADO
+           ========================================================================== */
+
+        function openAdminModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const pin = document.getElementById('admin-pin').value;
+            if (pin === (settings.adminPin || 'admin123')) {
+                closeAuthModal();
+                document.getElementById('admin-pin').value = '';
+                document.getElementById('admin-modal').classList.remove('hidden');
+                renderAdminTable();
+                toggleFormFields();
+                showToast('Acceso de Editor Autorizado', 'fa-user-check');
+            } else {
+                showToast('PIN incorrecto', 'fa-triangle-exclamation');
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function saveGeneralSettings(e) {
+            e.preventDefault();
+            settings.whatsapp = document.getElementById('cfg-whatsapp').value;
+            settings.bankAccount = document.getElementById('cfg-bank').value;
+            settings.paypal = document.getElementById('cfg-paypal').value;
+            settings.email = document.getElementById('cfg-email').value;
+            settings.facebook = document.getElementById('cfg-facebook').value;
+            settings.instagram = document.getElementById('cfg-instagram').value;
+            settings.youtube = document.getElementById('cfg-youtube').value;
+            settings.twitter = document.getElementById('cfg-twitter').value;
+
+            localStorage.setItem('r2_settings', JSON.stringify(settings));
+            renderConfig();
+            showToast('Ajustes generales guardados', 'fa-floppy-disk');
+        }
+
+        function toggleFormFields() {
+            const cat = document.getElementById('item-category').value;
+            const fieldAudio = document.getElementById('field-audio-url');
+            const fieldText = document.getElementById('field-book-text');
+            const fieldKaraoke = document.getElementById('field-karaoke-lyrics');
+
+            fieldAudio.classList.remove('hidden');
+            fieldText.classList.add('hidden');
+            fieldKaraoke.classList.add('hidden');
+
+            if (cat === 'libros') {
+                fieldAudio.classList.add('hidden');
+                fieldText.classList.remove('hidden');
+            } else if (cat === 'canciones') {
+                fieldKaraoke.classList.remove('hidden');
+            }
+        }
+
+        function handleSaveItem(e) {
+            e.preventDefault();
+            const id = document.getElementById('edit-item-id').value;
+            const category = document.getElementById('item-category').value;
+            const title = document.getElementById('item-title').value;
+            const author = document.getElementById('item-author').value;
+            const cover = document.getElementById('item-cover').value;
+            const audio = document.getElementById('item-audio').value;
+            const text = document.getElementById('item-text').value;
+            const lyrics = document.getElementById('item-lyrics').value;
+
+            if (id) {
+                // Editar Existente
+                const idx = items.findIndex(i => i.id === id);
+                if (idx !== -1) {
+                    items[idx] = { ...items[idx], category, title, author, cover, audio, text, lyrics };
+                }
+            } else {
+                // Nuevo
+                const newItem = {
+                    id: 'item_' + Date.now(),
+                    category,
+                    title,
+                    author,
+                    cover,
+                    audio,
+                    text,
+                    lyrics,
+                    hidden: false,
+                    likes: 0
+                };
+                items.unshift(newItem);
+            }
+
+            localStorage.setItem('r2_items', JSON.stringify(items));
+            renderGalleries();
+            renderAdminTable();
+            resetItemForm();
+            showToast('Obra guardada exitosamente', 'fa-circle-check');
+        }
+
+        function resetItemForm() {
+            document.getElementById('edit-item-id').value = '';
+            document.getElementById('item-form').reset();
+            document.getElementById('form-item-title').innerHTML = '<i class="fa-solid fa-plus-circle mr-2"></i> Publicar Nuevo Contenido';
+            toggleFormFields();
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-items-table');
+            tbody.innerHTML = '';
+
+            items.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-purple-900/20 transition-colors";
+
+                tr.innerHTML = `
+                    <td class="p-3">
+                        <img src="${item.cover}" class="w-10 h-10 object-cover rounded-lg border border-purple-500/30" onerror="this.src='https://placehold.co/100'">
+                    </td>
+                    <td class="p-3">
+                        <p class="font-bold text-white">${item.title}</p>
+                        <p class="text-[10px] text-purple-300/60">${item.author}</p>
+                    </td>
+                    <td class="p-3 uppercase text-[10px] font-bold text-pink-400">${item.category}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] ${item.hidden ? 'bg-red-500/20 text-red-300' : 'bg-emerald-500/20 text-emerald-300'}">
+                            ${item.hidden ? 'Oculto' : 'Público'}
+                        </span>
+                    </td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="toggleHideItem('${item.id}')" class="p-1.5 rounded-lg glass-panel hover:bg-purple-600/40 text-purple-200" title="${item.hidden ? 'Mostrar' : 'Ocultar'}">
+                            <i class="fa-solid ${item.hidden ? 'fa-eye' : 'fa-eye-slash'}"></i>
+                        </button>
+                        <button onclick="editItem('${item.id}')" class="p-1.5 rounded-lg glass-panel hover:bg-cyan-600/40 text-cyan-200" title="Editar">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button onclick="deleteItem('${item.id}')" class="p-1.5 rounded-lg glass-panel hover:bg-red-600/40 text-red-300" title="Eliminar">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleHideItem(id) {
+            const item = items.find(i => i.id === id);
+            if (item) {
+                item.hidden = !item.hidden;
+                localStorage.setItem('r2_items', JSON.stringify(items));
+                renderGalleries();
+                renderAdminTable();
+                showToast(item.hidden ? 'Obra ocultada' : 'Obra visible en público', 'fa-eye');
+            }
+        }
+
+        function editItem(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('edit-item-id').value = item.id;
+            document.getElementById('item-category').value = item.category;
+            document.getElementById('item-title').value = item.title;
+            document.getElementById('item-author').value = item.author;
+            document.getElementById('item-cover').value = item.cover;
+            document.getElementById('item-audio').value = item.audio || '';
+            document.getElementById('item-text').value = item.text || '';
+            document.getElementById('item-lyrics').value = item.lyrics || '';
+
+            document.getElementById('form-item-title').innerHTML = '<i class="fa-solid fa-pen-to-square mr-2"></i> Editando Obra';
+            toggleFormFields();
+        }
+
+        function deleteItem(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta obra permanentemente?')) {
+                items = items.filter(i => i.id !== id);
+                localStorage.setItem('r2_items', JSON.stringify(items));
+                renderGalleries();
+                renderAdminTable();
+                showToast('Obra eliminada del catálogo', 'fa-trash-can');
+            }
+        }
+
+        /* ==========================================================================
+           NOTIFICACIONES DE SISTEMA
+           ========================================================================== */
+
+        function showToast(message, iconClass = 'fa-circle-check') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            document.getElementById('toast-icon').className = `fa-solid ${iconClass} text-pink-400 text-lg`;
+
+            toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
